@@ -10,24 +10,6 @@ app.use(express.json());
 
 app.use('/api/users/', usersRoutes);
 
-// app.get('/api/users', (req, res) => {
-//     dbConnnection.query('SELECT 1', (err, results) => {
-//         if (err) {
-//             return res.status(500).json({ 
-//                 success: false,
-//                 message: 'Database connection error',
-//                 error: err.message
-//             });
-//         }
-//         res.json({
-//             success: true,
-//             message: 'Database connection successful',
-//             results: results
-//         });
-//     })
-// });
-
-
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);
