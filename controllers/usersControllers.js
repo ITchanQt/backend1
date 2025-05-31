@@ -51,26 +51,43 @@ const usersControllers = {
         }
     },
 
-    // createUser: async (req, res) => {
-    //     try {
-    //         const userData = req.body;
-    //         const results = await Users.create(userData);
-    //         res.status(201).json({
-    //             success: true,
-    //             message: 'User created successfully',
-    //             data: {
-    //                 id: results.insertID,
-    //                 ...userData
-    //             }
-    //         });
-    //     } catch (error) {
-    //         res.status(500).json({
-    //             success: false,
-    //             message: 'Error creating user',
-    //             error: error.message
-    //         });
-    //     }
-    // }
+    updateById: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { name, address, phoneNum} = req.body;
+
+            const userData = {
+                user_name: name,
+                user_add: address,
+                user_num: phoneNum
+            };
+
+            const results = await Users.updateById(userData, id);
+
+            if (results.affectedRows === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'User not found'
+                });
+            }
+
+            res.json({
+                success: true,
+                message: 'User updated',
+                data: {
+                    id,
+                    ...userData
+                }
+            });
+        } catch (error) {  
+            res.status(500).json({
+                success: false,
+                message: 'Error updating user',
+                error: error.message
+            });
+        }
+    }
+
 };
 
 module.exports = usersControllers;
