@@ -21,6 +21,15 @@ const Users = {
         });
     });
   },
+
+  updateById: (userData, id) => {
+    return new Promise((resolve, reject) => {
+      dbConnection.query('UPDATE users SET ? WHERE user_id = ?', [userData, id], (error, results) => {
+        if (error) reject(error);
+        resolve(results);
+      });
+    });
+  }
 };
 
 module.exports = Users;
