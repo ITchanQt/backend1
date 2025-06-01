@@ -104,6 +104,27 @@ const usersControllers = {
             });
         }
     }
+  },
+
+  deleteUserById: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await Users.deleteUserById(id);
+      res.json({
+        success: true,
+        message: "User deleted successfully",
+        data: {
+          user_id: id,
+        }
+      });
+    } catch (error) {
+      if (error.message === "User not found") {
+        return res.status(404).json({
+          success: false,
+          message: "User not founf",
+        });
+      }
+    }
   }
 
 };

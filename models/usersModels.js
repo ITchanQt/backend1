@@ -51,6 +51,28 @@ const Users = {
       );
     });
   },
+
+  deleteUserById: (id) => {
+    return new Promise((resolve, reject) => {
+      dbConnection.query(
+        "DELETE FROM users WHERE user_id = ?",
+        [id],
+        (error, results) => {
+          if (error) reject(error);
+          if (results.affectedRows ===0 ) {
+            return reject(new Error("User ot found"));
+          }
+          resolve({
+            success: true,
+            message: "User deleted successfully",
+            data: {
+              user_id: id,
+            }
+          })
+        }
+      )
+    })
+  }
 };
 
 module.exports = Users;
